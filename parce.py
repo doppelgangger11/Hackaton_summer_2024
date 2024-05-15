@@ -10,14 +10,14 @@ def main():
 
     url = f'{url_base}#tab05_2024/'
 
-    response = requests.get(url, verify=False)
-
-    if response.status_code == 200:
-        html_content = response.text
-    else:
-        print('Ошибка при получении страницы:', response.status_code)
-
-    soup = BeautifulSoup(html_content, 'html.parser')
+    try:
+        response = requests.get(url, verify=False)
+        print(f'Подключение к серверу прошло успешно, {response.status_code = }')
+    except requests.exceptions.ConnectionError as e:
+        print("Не удалось подключиться к серверу:", e)
+        return None
+        
+    soup = BeautifulSoup(response.text, 'html.parser')
 
     slides = soup.find_all('a', class_='poster-prev')
 
