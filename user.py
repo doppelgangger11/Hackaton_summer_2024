@@ -1,15 +1,13 @@
 import csv
 import hashlib
-import uuid
-
 
 class User:
-    def __init__(self, username, password):
-        self.name = username
+    def __init__(self, username: str, password: str, id_: str):
+        self.name: str = username
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-        self.password =  hashed_password
-        self.ID = str(uuid.uuid4())
-        self.tickets = list()
+        self.password: str =  hashed_password
+        self.id_: str = id_
+        self.tickets: list[str] = list()
         
 
     def save(self):
@@ -18,11 +16,11 @@ class User:
 
         updated_line = None
         for i, line in enumerate(lines):
-            if line.startswith(str(self.ID)):
+            if line.startswith(str(self.id_)):
                 tickets_str = ''
                 for ticket in self.tickets:
                     tickets_str += f'{ticket}-'
-                updated_line = f'{self.ID},{self.name},{self.password},{tickets_str}\n'
+                updated_line = f'{self.id_},{self.name},{self.password},{tickets_str}\n'
                 lines[i] = updated_line
                 break
 
@@ -30,7 +28,7 @@ class User:
             tickets_str = ''
             for ticket in self.tickets:
                 tickets_str += f'{ticket}-'
-            updated_line = f'{self.ID},{self.name},{self.password},{tickets_str}\n'
+            updated_line = f'{self.id_},{self.name},{self.password},{tickets_str}\n'
             lines.append(updated_line)
 
         with open('users.csv', 'w') as f:

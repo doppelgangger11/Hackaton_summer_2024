@@ -2,10 +2,11 @@ from bs4 import BeautifulSoup
 import requests
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
+from typing import Any
 
 urllib3.disable_warnings(InsecureRequestWarning)
 
-def main():
+def main() -> (dict[str, dict[str, Any]]):
     url_base = 'https://gatob.kz/'
 
     url = f'{url_base}#tab05_2024/'
@@ -15,7 +16,7 @@ def main():
         print(f'Подключение к серверу прошло успешно, {response.status_code = }')
     except requests.exceptions.ConnectionError as e:
         print("Не удалось подключиться к серверу:", e)
-        return None
+        exit()
         
     soup = BeautifulSoup(response.text, 'html.parser')
 
