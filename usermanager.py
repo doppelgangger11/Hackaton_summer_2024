@@ -6,19 +6,22 @@ import uuid
 
 class UserManager():
     def __init__(self, userList: list):
-        self.userList = userList
+        self.userList: list[dict] = userList
         self.user = None
         
 
     def add_user(self, username: str, password: str):
         id_ = str(uuid.uuid4())
-        user = User(username=username, password=password, id_=id_)
+        new_user = User(username=username, password=password, id_=id_)
+        
         for user in self.userList:
-            if user['ID'] != id_ and user['username'] != username and user['password'] != password:
-                self.userList.append(self.user)
-                user.save()
-        else:
-            print("User is already exist")
+            if new_user.username == user['username']:
+                print("User is already exist")
+                return
+        
+        new_user_dict = {'ID': new_user.id_, 'username': new_user.username, 'password': new_user.password, 'tickets': []}
+        self.userList.append(new_user_dict)
+        new_user.save()
 
     def login(self, username: str, password: str, id_: str):
         for user in self.userList:
@@ -29,12 +32,12 @@ class UserManager():
 
     def logout(self):
         if self.user != None:
-            print(f"Goodbye {self.user.name}!")
+            print(f"Goodbye {self.user.username}!")
             self.user = None
 
     def buy_ticket(self, ticket: Ticket):
-        if self.user != None:
-            self.user.tickets.append(f'{ticket.ticket_id}')
+        if self.user is not None:
+            self.user.add_ticket(ticket)  # Используем метод add_ticket для добавления билета к пользователю
             self.user.save()
         else:
             print("You must be logged in to buy a ticket")

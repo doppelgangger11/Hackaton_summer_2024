@@ -29,7 +29,7 @@ def get_command(user_manager):
     if user_manager.user == None:
         com: str = input("Enter the command >>> ").strip()
         return com
-    com: str = input(f"Enter the command {user_manager.user.name} >>> ").strip()
+    com: str = input(f"Enter the command {user_manager.user.username} >>> ").strip()
 
     return com
 
@@ -61,11 +61,11 @@ while run:
                     password=input("enter the password >>> ").strip()
                 )
             elif com == "login":
-                username=input("enter the username >>> ").strip()
-                password=input("enter the password >>> ").strip()
+                username = input("enter the username >>> ").strip()
+                password = input("enter the password >>> ").strip()
                 
                 for user in user_list:
-                    if user['username'] == username and user['password'] ==  password:
+                    if user['username'] == username and user['password'] == password:
                         id_ = user['ID']
                 
                 user_manager.login(
