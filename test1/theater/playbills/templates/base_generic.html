@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Театр{% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="bg-dark text-light py-3">
+        <div class="container">
+            <h1 class="mb-0">Театр</h1>
+            <nav>
+                <ul class="list-unstyled mb-0">
+                    <li class="d-inline-block mr-3"><a class="text-light" href="{% url 'playbill_list' %}">Афиша</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="d-inline-block mr-3"><a class="text-light" href="{% url 'account_logout' %}">Выйти</a></li>
+                    {% else %}
+                        <li class="d-inline-block mr-3"><a class="text-light" href="{% url 'account_login' %}">Авторизоваться</a></li>
+                        <li class="d-inline-block"><a class="text-light" href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container my-5">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="bg-dark text-light py-3">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Театр</p>
+        </div>
+    </footer>
+</body>

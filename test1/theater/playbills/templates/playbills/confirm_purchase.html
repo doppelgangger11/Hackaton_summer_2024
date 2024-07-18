@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подтверждение покупки</title>
+</head>
+<body>
+    <h1>Подтверждение покупки</h1>
+    <p>Детали покупки:</p>
+    <p>Пользователь: {{ ticket.user.username }}</p>
+    <p>Афиша: {{ ticket.playbill.title }}</p>
+    <p>Номер места: {{ ticket.seat_number }}</p>
+    <p>Номер ряда: {{ ticket.row_number }}</p>
+    <p>Дата приобретения: {{ ticket.purchase_date }}</p>
+</body>
+</html>
+{% endblock %}

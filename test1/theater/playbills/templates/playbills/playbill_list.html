@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+  {% for playbill in playbills %}
+  <div class="col-md-4 mb-4">
+      <div class="card">
+          <img src="{{ playbill.image.url }}" class="card-img-top" alt="{{ playbill.title }}">
+          <div class="card-body">
+              <h5 class="card-title">{{ playbill.title }}</h5>
+              <p class="card-text">{{ playbill.date }}</p>
+              <p class="card-text">{{ playbill.price }}</p>
+              <p class="card-text">{{ playbill.description }}</p>
+              <a href="{% url 'buy_ticket' playbill_id=playbill.id %}" class="btn btn-primary">Купить билет</a>
+          </div>
+      </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}
